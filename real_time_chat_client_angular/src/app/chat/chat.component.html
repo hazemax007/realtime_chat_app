@@ -1,0 +1,39 @@
+<div class="chat-container">
+    <div class="sidebar">
+      <h3>Users</h3>
+      <ul>
+        <li *ngFor="let user of users$ | async">{{ user.username }}</li>
+      </ul>
+      <mat-card class="join-card">
+        <mat-form-field appearance="outline" class="flex-grow">
+          <mat-label>Enter your username...</mat-label>
+          <input matInput type="text" [(ngModel)]="username" [disabled]="isJoined" (keyup.enter)="joinChat()" />
+        </mat-form-field>
+        <button mat-raised-button color="primary" [disabled]="isJoined" (click)="joinChat()">Join Chat</button>
+      </mat-card>
+    </div>
+    
+    
+    <div class="main-chat">
+      <div class="chat-messages">
+        <div *ngFor="let msg of messages$ | async" class="message-item" [ngClass]="{'self': msg.userId === 'self', 'other': msg.userId !== 'self'}">
+          <span class="user-id">{{ msg.username }}:</span> {{ msg.msg }}
+        </div>
+      </div>
+  
+     
+      <div class="chat-input">
+        <mat-form-field appearance="outline" class="flex-grow">
+          <mat-label>Type your message...</mat-label>
+          <input matInput type="text" [(ngModel)]="message" [disabled]="!isJoined" (keyup.enter)="sendMessage()" />
+        </mat-form-field>
+        <button mat-raised-button color="primary" [disabled]="!isJoined" (click)="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  
